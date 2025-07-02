@@ -316,4 +316,4 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app
 
 ## Support
 
-For support, please contact [your-email@example.com]
+For support, please contact praveenshahi26@gmail.com
