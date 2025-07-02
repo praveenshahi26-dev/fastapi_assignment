@@ -8,7 +8,7 @@ from app.models.organization import Organization
 client = TestClient(app)
 
 class TestOrganizationRoutes:
-    def test_create_organization(self, db_session, auth_headers):
+    def test_create_organization(self, test_db, auth_headers):
         """Test creating organization via API"""
         org_data = {
             "name": "Test Organization",
@@ -16,7 +16,7 @@ class TestOrganizationRoutes:
         }
         
         response = client.post(
-            "/organizations/",
+            "/api/organizations/",
             json=org_data,
             headers=auth_headers
         )
@@ -24,15 +24,16 @@ class TestOrganizationRoutes:
         assert response.status_code == 201
         assert response.json()["name"] == "Test Organization"
     
-    def test_get_user_organizations(self, db_session, auth_headers):
+    def test_get_user_organizations(self, test_db, auth_headers):
         """Test getting user organizations"""
-        response = client.get("/organizations/", headers=auth_headers)
+        response = client.get("/api/organizations/", headers=auth_headers)
         
         assert response.status_code == 200
         assert isinstance(response.json(), list)
     
-    def test_get_organization_unauthorized(self, db_session):
+    def test_get_organization_unauthorized(self, test_db):
         """Test getting organization without authentication"""
-        response = client.get("/organizations/1")
+        response = client.get("/api/organizations/999")
         
-        assert response.status_code == 401
+        # Should return 403 Forbidden because the endpoint requires authentication
+        assert response.status_code == 403

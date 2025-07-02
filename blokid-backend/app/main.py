@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import auth
+from app.routers import auth, organizations
 
 app = FastAPI(title="BlokID Backend", version="1.0.0")
 
@@ -19,3 +19,4 @@ async def root():
 
 # Include routers
 app.include_router(auth.router)
+app.include_router(organizations.router, prefix="/api")

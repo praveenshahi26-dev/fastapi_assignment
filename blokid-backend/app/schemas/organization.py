@@ -1,7 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 from datetime import datetime
 from app.schemas.user import User
+from enum import Enum
 
 class OrganizationBase(BaseModel):
     name: str
@@ -29,6 +30,26 @@ class Organization(OrganizationInDB):
 
 class OrganizationWithMembers(Organization):
     members: Optional[List['OrganizationMember']] = None
+
+class OrganizationInviteStatus(str, Enum):
+    PENDING = "pending"
+    ACCEPTED = "accepted"
+    DECLINED = "declined"
+    EXPIRED = "expired"
+
+class OrganizationInvite(BaseModel):
+    email: EmailStr
+    role: str
+    status: OrganizationInviteStatus = OrganizationInviteStatus.PENDING
+    organization_id: int
+
+class OrganizationInviteResponse(OrganizationInvite):
+    id: int
+    created_at: datetime
+    updated_at: Optional[datetime]
+    
+    class Config:
+        from_attributes = True
 
 # Import after to avoid circular imports
 from app.schemas.user import OrganizationMember
