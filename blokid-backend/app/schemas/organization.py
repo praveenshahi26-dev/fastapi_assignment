@@ -3,6 +3,7 @@ from typing import Optional, List
 from datetime import datetime
 from app.schemas.user import User
 from enum import Enum
+from app.models.user import UserRole
 
 class OrganizationBase(BaseModel):
     name: str
@@ -38,10 +39,8 @@ class OrganizationInviteStatus(str, Enum):
     EXPIRED = "expired"
 
 class OrganizationInvite(BaseModel):
-    email: EmailStr
-    role: str
-    status: OrganizationInviteStatus = OrganizationInviteStatus.PENDING
-    organization_id: int
+    email: str
+    role: UserRole
 
 class OrganizationInviteResponse(OrganizationInvite):
     id: int

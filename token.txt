@@ -1,0 +1,4 @@
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJwcmF2ZWVuc2hhaGkyNkBnbWFpbC5jb20iLCJleHAiOjE3NTE0NTAzMTN9._suIaiMInNqs_t6vwyTUF7FOyYqKgZYQ-OB0Lu8eQJo",
+  "token_type": "bearer"
+}

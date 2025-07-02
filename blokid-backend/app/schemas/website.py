@@ -1,7 +1,45 @@
+# from pydantic import BaseModel, HttpUrl
+# from typing import Optional, List
+# from datetime import datetime
+# from app.schemas.organization import Organization
+# from app.models.user import UserRole
+
+# class WebsiteBase(BaseModel):
+#     name: str
+#     url: str
+#     description: Optional[str] = None
+
+# class WebsiteCreate(WebsiteBase):
+#     organization_id: int
+
+# class WebsiteInvite(BaseModel):
+#     email: str  
+#     role: UserRole
+
+# # class WebsiteInDB(WebsiteBase):
+#     id: int
+#     organization_id: int
+#     created_at: datetime
+#     updated_at: Optional[datetime]
+    
+#     class Config:
+#         from_attributes = True
+
+# class Website(WebsiteInDB):
+#     organization: Optional[Organization] = None
+
+# class WebsiteWithMembers(Website):
+#     members: Optional[List['WebsiteMember']] = None
+
+# # Import after to avoid circular imports
+# from app.schemas.user import WebsiteMember
+# WebsiteWithMembers.model_rebuild()
+
 from pydantic import BaseModel, HttpUrl
 from typing import Optional, List
 from datetime import datetime
 from app.schemas.organization import Organization
+from app.models.user import UserRole
 
 class WebsiteBase(BaseModel):
     name: str
@@ -15,6 +53,10 @@ class WebsiteUpdate(BaseModel):
     name: Optional[str] = None
     url: Optional[str] = None
     description: Optional[str] = None
+
+class WebsiteInvite(BaseModel):
+    email: str  
+    role: UserRole
 
 class WebsiteInDB(WebsiteBase):
     id: int
