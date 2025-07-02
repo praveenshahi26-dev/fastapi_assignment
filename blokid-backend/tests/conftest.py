@@ -13,16 +13,17 @@ SQLALCHEMY_DATABASE_URL = settings.DATABASE_URL
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
 def test_db():
-    # Create all tables
-    Base.metadata.create_all(bind=engine)
-    
     # Create a database session
     db = TestingSessionLocal()
     try:
+        # Create all tables
+        Base.metadata.create_all(bind=engine)
         yield db
     finally:
+        # Rollback any changes
+        db.rollback()
         # Close the session
         db.close()
         # Drop all tables

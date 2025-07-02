@@ -4,7 +4,6 @@ from sqlalchemy.sql import func
 from app.database import Base
 import enum
 from app.models.organization import Organization
-from app.models.website import Website
 from datetime import datetime, timezone
 
 class UserRole(enum.Enum):

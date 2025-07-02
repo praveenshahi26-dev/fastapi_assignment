@@ -3,8 +3,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.database import Base
 from app.models.organization import Organization
-from app.models.user import User
-from app.models.website import Website
 
 class Website(Base):
     __tablename__ = "websites"
