@@ -11,10 +11,10 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     
     # Email (Gmail SMTP Example)
-    SMTP_SERVER: Optional[str]
-    SMTP_PORT: Optional[int]
-    SMTP_USERNAME: Optional[str]
-    SMTP_PASSWORD: Optional[str]
+    SMTP_SERVER: Optional[str] = None
+    SMTP_PORT: Optional[int] = None
+    SMTP_USERNAME: Optional[str] = None
+    SMTP_PASSWORD: Optional[str] = None
     
     class Config:
         env_file = ".env"
