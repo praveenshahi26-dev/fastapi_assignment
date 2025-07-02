@@ -1,8 +1,11 @@
 # BlokID Backend
 
-A FastAPI-based backend service for managing organizations, users, and websites with JWT authentication.
+A FastAPI-based backend service implementing a complete user authentication and authorization system with organizations and websites management.
 
 ## Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
 - [Prerequisites](#prerequisites)
 - [Setup and Installation](#setup-and-installation)
 - [Environment Variables](#environment-variables)
@@ -10,8 +13,46 @@ A FastAPI-based backend service for managing organizations, users, and websites 
 - [API Endpoints](#api-endpoints)
 - [Project Structure](#project-structure)
 - [Data Flow](#data-flow)
+- [User Roles and Permissions](#user-roles-and-permissions)
 - [Testing](#testing)
 - [Deployment](#deployment)
+
+## Project Overview
+
+This project implements a RESTful API using FastAPI and PostgreSQL, focusing on user authentication, authorization, and data relationships. It provides a complete solution for managing users, organizations, and websites with role-based access control.
+
+## Features
+
+- **User Management**
+  - User registration with email and password
+  - JWT-based authentication
+  - Email verification for new users
+  - Profile management
+
+- **Organization Management**
+  - Automatic organization creation on user registration
+  - CRUD operations for organizations
+  - Role-based access control
+
+- **Website Management**
+  - CRUD operations for websites
+  - Website association with organizations
+  - Granular permission control
+
+- **Security**
+  - Secure password hashing
+  - JWT token authentication
+  - Role-based access control
+  - Input validation using Pydantic
+
+## Technology Stack
+
+- **Backend Framework**: FastAPI
+- **Database**: PostgreSQL
+- **ORM**: SQLAlchemy
+- **Authentication**: JWT (JSON Web Tokens)
+- **Testing**: Pytest (optional but recommended)
+- **Email Service**: SMTP (for email verification)
 
 ## Prerequisites
 
@@ -110,17 +151,50 @@ blokid-backend/
 ## Data Flow
 
 1. **Authentication Flow**
-   - User submits credentials to `/token` endpoint
-   - Server validates credentials and returns JWT token
+   - User registers with email and password
+   - System sends verification email
+   - After verification, user can log in to receive JWT token
    - Token is used for subsequent authenticated requests
 
 2. **Organization Management**
-   - Authenticated users can create organizations
-   - Organization admins can manage members and websites
+   - New organization is automatically created during user registration
+   - Organization admin can invite other users
+   - Role-based access control for organization resources
 
 3. **Website Management**
-   - Organization members can add/remove websites
+   - Organization members can manage websites based on their roles
    - Website data includes domain, verification status, and metadata
+   - Access control is enforced at both organization and website levels
+
+## User Roles and Permissions
+
+### Organization Level
+
+**Organization Admin**
+- Full access to the organization and its websites
+- Can invite users to the organization with different roles
+- Permissions:
+  - Organization: CRUD operations
+  - Websites: CRUD operations, invite website members
+
+**Organization User**
+- Limited access to the organization and its websites
+- Permissions:
+  - Organization: Read and update operations
+  - Websites: Read, create, and update operations
+
+### Website Level
+
+**Website Admin**
+- Full access to the specific website
+- Can invite users with website-level access
+- Permissions:
+  - Website: CRUD operations, invite website members
+
+**Website User**
+- Limited access to the specific website
+- Permissions:
+  - Website: Read and update operations
 
 ## API Endpoints
 
@@ -316,4 +390,4 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app
 
 ## Support
 
-For support, please contact praveenshahi26@gmail.com
+For support, please contact [your-email@example.com]
