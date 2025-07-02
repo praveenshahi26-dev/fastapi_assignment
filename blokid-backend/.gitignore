@@ -36,8 +36,8 @@ ENV/
 *.log
 
 # Environment variables
-# .env
-# .env.local
+.env
+.env.local
 
 # Test database
 test.db
